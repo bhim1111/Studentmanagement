@@ -1,0 +1,59 @@
+{% extends 'students/base.html' %}
+
+{% block title %}All Students | Student Management{% endblock %}
+
+{% block content %}
+<div class="header">
+    <h1 class="page-title">Students</h1>
+    <a href="{% url 'student-create' %}" class="btn btn-primary">+ Add Student</a>
+</div>
+
+<div class="table-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Age</th>
+                <th>Course</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        {% if student.image %}
+                        <img src="{{ student.image.url }}" alt="{{ student.name }}" class="profile-img-thumb">
+                        {% else %}
+                        <div class="profile-img-thumb"
+                            style="background: #e5e7eb; display: flex; align-items: center; justify-content: center;">
+                            👤
+                        </div>
+                        {% endif %}
+                        <span style="font-weight: 500;">{{ student.name }}</span>
+                    </div>
+                </td>
+                <td>{{ student.age }}</td>
+                <td>{{ student.course }}</td>
+                <td>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <a href="{% url 'student-update' student.pk %}" class="btn btn-secondary"
+                            style="padding: 0.25rem 0.5rem; font-size: 0.875rem;">Edit</a>
+                        <a href="{% url 'student-delete' student.pk %}" class="btn btn-danger"
+                            style="padding: 0.25rem 0.5rem; font-size: 0.875rem;">Delete</a>
+                    </div>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                    No students found. <a href="{% url 'student-create' %}" style="color: var(--primary-color);">Add one
+                        now</a>.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

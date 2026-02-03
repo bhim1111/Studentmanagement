@@ -1,0 +1,29 @@
+{% extends 'students/base.html' %}
+
+{% block title %}Dashboard | Student Management{% endblock %}
+
+{% block content %}
+<div class="header">
+  <h1 class="page-title">Dashboard Overview</h1>
+  <div>
+    <a href="{% url 'student-create' %}" class="btn btn-primary">+ New Student</a>
+  </div>
+</div>
+
+<div class="card-grid">
+  <div class="stat-card">
+    <span class="stat-value">{{ total_students }}</span>
+    <span class="stat-label">Total Students</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-value">{{ active_students }}</span>
+    <span class="stat-label">Active Students</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-value">{{ graduated_students }}</span>
+    <span class="stat-label">Graduated</span>
+  </div>
+</div>
+
+<!-- Recent Activity or Quick Actions could go here -->
+{% endblock %}
