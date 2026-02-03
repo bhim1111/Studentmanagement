@@ -1,8 +1,10 @@
 /* Global Styles */
 :root {
-    --primary-color: #6366f1; /* Indigo */
+    --primary-color: #6366f1;
+    /* Indigo */
     --primary-hover: #4f46e5;
-    --secondary-color: #ec4899; /* Pink */
+    --secondary-color: #ec4899;
+    /* Pink */
     --bg-color: #f3f4f6;
     --card-bg: #ffffff;
     --text-main: #1f2937;
@@ -25,7 +27,12 @@ body {
 }
 
 /* Typography */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-weight: 700;
     color: #111827;
     margin-top: 0;
@@ -85,7 +92,8 @@ a {
     font-weight: 500;
 }
 
-.nav-link:hover, .nav-link.active {
+.nav-link:hover,
+.nav-link.active {
     background-color: #eef2ff;
     color: var(--primary-color);
 }
@@ -262,4 +270,64 @@ a {
     height: 40px;
     border-radius: 50%;
     object-fit: cover;
+}
+
+/* Alerts */
+.alert {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.alert-success {
+    background-color: #dcfce7;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}
+
+.alert-success::before {
+    content: '✅';
+    margin-right: 0.75rem;
+    font-size: 1.25rem;
+}
+
+.alert-error,
+.alert-danger {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+.alert-error::before,
+.alert-danger::before {
+    content: '❌';
+    margin-right: 0.75rem;
+    font-size: 1.25rem;
+}
+
+.alert-info {
+    background-color: #dbeafe;
+    color: #1e40af;
+    border: 1px solid #bfdbfe;
+}
+
+.alert-info::before {
+    content: 'ℹ️';
+    margin-right: 0.75rem;
+    font-size: 1.25rem;
+}
+
+.alert-warning {
+    background-color: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fde68a;
+}
+
+.alert-warning::before {
+    content: '⚠️';
+    margin-right: 0.75rem;
+    font-size: 1.25rem;
 }

@@ -5,7 +5,14 @@
 {% block content %}
 <div class="header">
     <h1 class="page-title">Students</h1>
-    <a href="{% url 'student-create' %}" class="btn btn-primary">+ Add Student</a>
+    <div style="display: flex; gap: 1rem; align-items: center;">
+        <form method="GET" action="" style="display: flex; gap: 0.5rem;">
+            <input type="text" name="q" placeholder="Search..." value="{{ request.GET.q|default:'' }}"
+                class="form-control" style="width: 200px;">
+            <button type="submit" class="btn btn-secondary">Search</button>
+        </form>
+        <a href="{% url 'student-create' %}" class="btn btn-primary">+ Add Student</a>
+    </div>
 </div>
 
 <div class="table-container">

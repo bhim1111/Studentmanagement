@@ -1,7 +1,9 @@
 
 
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, ListView, CreateView, DeleteView
+from django.views.generic import TemplateView, ListView, CreateView, DeleteView, UpdateView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 
 from students.models import Student
 
@@ -26,27 +28,44 @@ class StudentListView(ListView):
     context_object_name = 'students'
     
     def get_queryset(self):
-        return Student.objects.filter().order_by("name")
+        query = self.request.GET.get('q')
+        if query:
+            return Student.objects.filter(name__icontains=query).order_by("name")
+        return Student.objects.all().order_by("name")
     
     
-class StudentCreateView(CreateView):
+class StudentCreateView(SuccessMessageMixin, CreateView):
     model = Student
     fields = ['name', 'image', 'age', 'course']
     template_name = 'students/student_form.html'
     success_url = '/student-create/'
+    success_message = "Student created successfully!"
     
-    
-class StudentUpdateView(CreateView):
+    def form_invalid(self, form):
+        messages.error(self.request, "Failed to create student. Please correct the errors below.")
+        return super().form_invalid(form)
+
+
+class StudentUpdateView(SuccessMessageMixin, UpdateView):
     model = Student
     fields = ['name', 'image', 'age', 'course']
     template_name = 'students/student_update.html'
     success_url = reverse_lazy('student-list')
+    success_message = "Student updated successfully!"
     
+    def form_invalid(self, form):
+        messages.error(self.request, "Failed to update student. Please correct the errors below.")
+        return super().form_invalid(form)
+
 
 class StudentDeleteView(DeleteView):
     model = Student
     template_name = 'students/student_delete.html'
     success_url = reverse_lazy('student-list')
+    
+    def form_valid(self, form):
+        messages.success(self.request, "Student deleted successfully!")
+        return super().form_valid(form)
     
     
 

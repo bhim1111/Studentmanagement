@@ -1,0 +1,62 @@
+{% extends 'students/base.html' %}
+
+{% block title %}Update Student | Student Management{% endblock %}
+
+{% block content %}
+<div class="header">
+    <h1 class="page-title">Update Student</h1>
+    <a href="{% url 'student-list' %}" class="btn btn-secondary">Cancel</a>
+</div>
+
+<div class="form-container">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="id_name" class="form-label">Full Name</label>
+            <input type="text" name="name" id="id_name" class="form-control" value="{{ form.name.value|default:'' }}"
+                required>
+            {% if form.name.errors %}
+            <div style="color: red; font-size: 0.875rem; margin-top: 0.25rem;">{{ form.name.errors.0 }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="id_age" class="form-label">Age</label>
+            <input type="number" name="age" id="id_age" class="form-control" value="{{ form.age.value|default:'' }}"
+                required>
+            {% if form.age.errors %}
+            <div style="color: red; font-size: 0.875rem; margin-top: 0.25rem;">{{ form.age.errors.0 }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="id_course" class="form-label">Course</label>
+            <input type="text" name="course" id="id_course" class="form-control"
+                value="{{ form.course.value|default:'' }}" required>
+            {% if form.course.errors %}
+            <div style="color: red; font-size: 0.875rem; margin-top: 0.25rem;">{{ form.course.errors.0 }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="id_image" class="form-label">Profile Image</label>
+            {% if form.instance.image %}
+            <div style="margin-bottom: 0.5rem;">
+                Currently: <a href="{{ form.instance.image.url }}">{{ form.instance.image.name }}</a>
+            </div>
+            {% endif %}
+            <input type="file" name="image" id="id_image" class="form-control">
+            {% if form.image.errors %}
+            <div style="color: red; font-size: 0.875rem; margin-top: 0.25rem;">{{ form.image.errors.0 }}</div>
+            {% endif %}
+        </div>
+
+        <div style="margin-top: 2rem;">
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+                Update Student
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
